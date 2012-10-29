@@ -29,8 +29,21 @@
  */
 
 require 'TDD' . DIRECTORY_SEPARATOR . 'Configuration.php';
+require 'TDD' . DIRECTORY_SEPARATOR . 'Runner.php';
 
 // set arguments
 $aArguments = ((array_key_exists('argv', $_SERVER)) ? $_SERVER['argv'] : array());
 
+// remove file attribute
+if (array_key_exists(0, $aArguments) && false !== strpos($aArguments[0], DIRECTORY_SEPARATOR . 'index.php')) {
+	array_shift($aArguments);
+}
+
+// instantiate Configuration Object
 $oConfig = new TDD\Configuration($aArguments);
+
+// instantiate Runner
+$oRunner = new \TDD\Runner($oConfig);
+
+// run
+$oRunner->run();

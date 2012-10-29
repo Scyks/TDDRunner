@@ -79,7 +79,7 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase {
 	public function __construct_PHPUnitArguments_ArgumentArraySettet() {
 
 		$oConfig = new \TDD\Configuration(array('--help', '--group=test'));
-		$this->assertSame(array('--group=test'), $oConfig->getPHPUnitArguments());
+		$this->assertSame('--group=test', $oConfig->getPHPUnitArguments());
 
 	}
 }

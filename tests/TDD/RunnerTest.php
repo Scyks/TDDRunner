@@ -16,6 +16,9 @@ class RunnerTest extends PHPUnit_Framework_TestCase {
 
 	protected $stdOut = null;
 
+	/**
+	 * Tear down method - calls after each test
+	 */
 	public function tearDown() {
 
 		if (null !== $this->stdOut) {
@@ -23,11 +26,25 @@ class RunnerTest extends PHPUnit_Framework_TestCase {
 		}
 	}
 
+	/**
+	 * get a configuration object
+	 *
+	 * @param array $aOptions
+	 *
+	 * @return TDD\Configuration
+	 */
 	protected function getConfig(array $aOptions = array()) {
 
 		return new \TDD\Configuration($aOptions);
 	}
 
+	/**
+	 * return an instance of \TDD\Runner
+	 *
+	 * @param array $aOptions
+	 *
+	 * @return TDD\Runner
+	 */
 	protected function getRunner(array $aOptions = array()) {
 
 		$oConfig = $this->getConfig($aOptions);
@@ -116,24 +133,6 @@ class RunnerTest extends PHPUnit_Framework_TestCase {
 		fseek($this->stdOut, 0);
 
 		$this->assertSame("\033[0;31mERROR: \033[0mThe given watch path does not exists",
-			stream_get_contents($this->stdOut)
-		);
-
-	}
-
-	/**
-	 * @test
-	 */
-	public function run_PHPUnitExecutableThatDoesNotExists_ShowMessageToStdErr() {
-
-		$oRunner = $this->getRunner(array('--phpunit-path', '/my/project/test/path/that/does/not/exists'));
-
-		// Main Loop
-		$oRunner->run();
-
-		fseek($this->stdOut, 0);
-
-		$this->assertSame("\033[0;31mERROR: \033[0mThe given PHPUnit executable does not exists",
 			stream_get_contents($this->stdOut)
 		);
 

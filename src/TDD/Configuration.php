@@ -9,7 +9,6 @@
  *
  * @package         TDD
  */
-
 namespace TDD;
 
 /**
@@ -46,9 +45,9 @@ class Configuration {
 
 	/**
 	 * PHPUnit Arguments
-	 * @var array
+	 * @var string
 	 */
-	protected $aPHPUnitArguments = array();
+	protected $sPHPUnitArguments = null;
 
 	/**
 	 *
@@ -60,7 +59,8 @@ class Configuration {
 		$this->sTestPath = dirname(dirname(dirname(__DIR__)));
 
 		// iterate arguments
-		for($i = 0; $i < count($aArguments); $i++) {
+		$iArguments = count($aArguments);
+		for($i = 0; $i < $iArguments; $i++) {
 
 			switch($aArguments[$i]) {
 
@@ -68,9 +68,8 @@ class Configuration {
 				case '--watch-path':
 					// set path
 					$this->sWatchPath = $aArguments[++$i];
-
 					// remove arguments
-					unset($aArguments[$i--], $aArguments[$i]);
+					unset($aArguments[$i - 1], $aArguments[$i]);
 
 					break;
 
@@ -79,7 +78,7 @@ class Configuration {
 					$this->sPHPUnitPath = $aArguments[++$i];
 
 					// remove arguments
-					unset($aArguments[$i--], $aArguments[$i]);
+					unset($aArguments[$i - 1], $aArguments[$i]);
 					break;
 
 				case '--test-path':
@@ -87,7 +86,7 @@ class Configuration {
 					$this->sTestPath = $aArguments[++$i];
 
 					// remove arguments
-					unset($aArguments[$i--], $aArguments[$i]);
+					unset($aArguments[$i - 1], $aArguments[$i]);
 					break;
 
 				case '--help':
@@ -103,9 +102,7 @@ class Configuration {
 		}
 
 		// set PHPUnit Arguments and reset array keys
-		foreach($aArguments as $sArg) {
-			$this->aPHPUnitArguments[] = $sArg;
-		}
+		$this->sPHPUnitArguments = implode(' ', $aArguments);
 
 	}
 
@@ -151,6 +148,6 @@ class Configuration {
 	 */
 	public function getPHPUnitArguments() {
 
-		return $this->aPHPUnitArguments;
+		return $this->sPHPUnitArguments;
 	}
 }
