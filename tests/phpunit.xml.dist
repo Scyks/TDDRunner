@@ -1,0 +1,18 @@
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false"
+         syntaxCheck="false"
+         bootstrap="./Bootstrap.php">
+
+    <testsuites>
+        <testsuite name="TDD Runner Application">
+            <directory>./</directory>
+        </testsuite>
+    </testsuites>
+
+</phpunit>
