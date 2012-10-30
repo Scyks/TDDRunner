@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="TDD Runner" default="build">
+
+    <target name="build" depends="prepare,cleanup,test,phar"/>
+
+    <!-- make build folder -->
+    <target name="prepare">
+        <echo msg="Making directory ./build"/>
+        <mkdir dir="./build"/>
+    </target>
+
+    <!-- cleanup buold directory -->
+    <target name="cleanup" description="Cleanup build artifacts">
+        <delete dir="./build/phar"/>
+
+        <delete>
+            <fileset dir="./build">
+                <include name="**/*.phar"/>
+            </fileset>
+        </delete>
+    </target>
+
+    <!-- Testing with phpunit -->
+    <target name="test">
+        <phpunit bootstrap="tests/Bootstrap.php">
+            <formatter type="summary" usefile="false"/>
+            <batchtest>
+                <fileset dir="tests">
+                    <include name="**/*Test.php"/>
+                </fileset>
+            </batchtest>
+        </phpunit>
+    </target>
+
+    <target name="phar" description="Create PHAR archive of TDDRunner" depends="cleanup">
+
+        <exec executable="bash" outputproperty="version">
+            <arg value="-c"/>
+            <arg value="php ./getVersion.php"/>
+        </exec>
+
+
+        <echo message="Version: ${version}"/>
+
+        <chmod file="./build.php" mode="755"/>
+        <exec executable="./build.php">
+            <arg value="--name=TDDRunner"/>
+            <arg value="--version=${version}"/>
+        </exec>
+
+        <chmod file="./build/TDDRunner-${version}.phar" mode="755"/>
+        <copy file="./build/TDDRunner-${version}.phar" tofile="./build/TDDRunner-${version}-compressed.phar"/>
+        <chmod file="./build/TDDRunner-${version}-compressed.phar" mode="755"/>
+
+        <exec executable="phar">
+            <arg value="compress"/>
+            <arg value="-f"/>
+            <arg path="./build/TDDRunner-${version}-compressed.phar"/>
+            <arg value="-c"/>
+            <arg value="bzip2"/>
+        </exec>
+    </target>
+</project>

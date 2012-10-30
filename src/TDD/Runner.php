@@ -1,13 +1,20 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: Scyks
- * Date: 28.10.12
- * Time: 16:39
- * To change this template use File | Settings | File Templates.
+ * @author          Ronald Marske <r.marske@secu-ring.de>
+ * @filesource      TDD/Runner.php
+ *
+ * @copyright       Copyright (c) 2012 Ronald Marske
+ *
+ * @package         TDD
  */
 namespace TDD;
 
+/**
+ * Tdd runner class that contains all business logic
+ * - check if filechanges happens
+ * - calls phpunit
+ * - print informations
+ */
 class Runner {
 
 	/**
@@ -78,13 +85,20 @@ class Runner {
 			return true;
 		}
 
-		if (!is_dir($this->oConfig->getTestPath())) {
+		// print version
+		if (true == $this->oConfig->getVersion()) {
+			$this->printVersion();
+
+			return true;
+		}
+
+		if (!is_dir(realpath($this->oConfig->getTestPath()))) {
 			$this->error('The given test path does not exists');
 
 			return false;
 		}
 
-		if (!is_dir($this->oConfig->getWatchPath())) {
+		if (!is_dir(realpath($this->oConfig->getWatchPath()))) {
 			$this->error('The given watch path does not exists');
 
 			return false;
@@ -95,6 +109,16 @@ class Runner {
 			$this->error('The given PHPUnit executable does not exists');
 			return false;
 		}*/
+
+		//echo realpath($this->oConfig->getTestPath());
+		//echo "\n";
+		//echo realpath($this->oConfig->getWatchPath());
+		//echo "\n";
+		//echo realpath($this->oConfig->getPHPUnitPath());
+		//echo "\n";
+
+		$this->printVersion();
+		$this->output("\n");
 
 		$this->mainLoop();
 
@@ -112,7 +136,7 @@ class Runner {
 		while(true == $this->bMainLoop) {
 
 			// Directory Iterator
-			$oDirectory = new \RecursiveDirectoryIterator($this->oConfig->getWatchPath());
+			$oDirectory = new \RecursiveDirectoryIterator(realpath($this->oConfig->getWatchPath()));
 			$oIterator = new \RecursiveIteratorIterator($oDirectory);
 			$oRegexIterator = new \RegexIterator($oIterator, '/^.+\.php$/i', \RecursiveRegexIterator::GET_MATCH);
 
@@ -165,6 +189,14 @@ class Runner {
 	}
 
 	/**
+	 * Print Version Information
+	 */
+	private function printVersion() {
+
+		$this->output(\TDD\Version::getVersionString() . "\n");
+	}
+
+	/**
 	 * Print the usage information to screen
 	 * @return void
 	 */
@@ -212,7 +244,7 @@ class Runner {
 
 		$sCurrDir = getcwd();
 
-		chdir($this->oConfig->getTestPath());
+		chdir(realpath($this->oConfig->getTestPath()));
 
 		// PHPUnit executable
 		$sExecutable = $this->oConfig->getPHPUnitPath();

@@ -28,7 +28,7 @@ class Configuration {
 	 *
 	 * @var string
 	 */
-	protected $sPHPUnitPath = 'phpunit';
+	protected $sPHPUnitPath = '/usr/bin/phpunit';
 
 	/**
 	 * test folder, where to find all tests or phpunit.xml or phpunit.xml.dist file
@@ -44,6 +44,12 @@ class Configuration {
 	protected $bHelp = false;
 
 	/**
+	 * flag that defines if version information have to be shown
+	 * @var bool
+	 */
+	protected $bVersion = false;
+
+	/**
 	 * PHPUnit Arguments
 	 * @var string
 	 */
@@ -55,8 +61,8 @@ class Configuration {
 	public function __construct(array $aArguments = array()) {
 
 		// set Defaults
-		$this->sWatchPath = dirname(dirname(dirname(__DIR__)));
-		$this->sTestPath = dirname(dirname(dirname(__DIR__)));
+		$this->sWatchPath = realpath(dirname(dirname(dirname(__DIR__))));
+		$this->sTestPath = realpath(dirname(dirname(dirname(__DIR__))));
 
 		// iterate arguments
 		$iArguments = count($aArguments);
@@ -98,6 +104,17 @@ class Configuration {
 					// remove arguments
 					unset($aArguments[$i]);
 					break;
+
+				case '--version':
+				case '-v':
+
+					// set Version
+					$this->bVersion = true;
+
+					// remove arguments
+					unset($aArguments[$i]);
+					break;
+
 			}
 		}
 
@@ -140,6 +157,15 @@ class Configuration {
 	public function getHelp() {
 
 		return $this->bHelp;
+	}
+
+	/**
+	 * flag if Version is settet
+	 * @return boolean
+	 */
+	public function getVersion() {
+
+		return $this->bVersion;
 	}
 
 	/**

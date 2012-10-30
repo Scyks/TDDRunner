@@ -76,10 +76,31 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @test
 	 */
+	public function __construct_ShortVersionArguments_HelpIsTrue() {
+
+		$oConfig = new \TDD\Configuration(array('-v'));
+		$this->assertTrue($oConfig->getVersion());
+
+	}
+
+	/**
+	 * @test
+	 */
+	public function __construct_LongVersionArguments_HelpIsTrue() {
+
+		$oConfig = new \TDD\Configuration(array('--version'));
+		$this->assertTrue($oConfig->getVersion());
+
+	}
+
+	/**
+	 * @test
+	 */
 	public function __construct_PHPUnitArguments_ArgumentArraySettet() {
 
 		$oConfig = new \TDD\Configuration(array('--help', '--group=test'));
 		$this->assertSame('--group=test', $oConfig->getPHPUnitArguments());
 
 	}
+
 }

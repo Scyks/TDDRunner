@@ -11,6 +11,7 @@
 
 require_once 'TDD' . DIRECTORY_SEPARATOR . 'Configuration.php';
 require_once 'TDD' . DIRECTORY_SEPARATOR . 'Runner.php';
+require_once 'TDD' . DIRECTORY_SEPARATOR . 'Version.php';
 
 class RunnerTest extends PHPUnit_Framework_TestCase {
 
@@ -99,6 +100,24 @@ class RunnerTest extends PHPUnit_Framework_TestCase {
 			. "   --help, -h                show this help\n\n";
 
 		$this->assertSame($sUsage, stream_get_contents($this->stdOut));
+
+	}
+
+	/**
+	 * @test
+	 */
+	public function printVersion_provideOptionVersin_getVersionInformation() {
+
+		$oRunner = $this->getRunner(array('-v'));
+
+		// Main Loop
+		$oRunner->run();
+
+		fseek($this->stdOut, 0);
+
+		$sUsage = \TDD\Version::getVersionString();
+
+		$this->assertSame($sUsage . "\n", stream_get_contents($this->stdOut));
 
 	}
 
