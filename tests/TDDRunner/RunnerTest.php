@@ -4,14 +4,43 @@
  * @author          Ronald Marske <r.marske@secu-ring.de>
  * @filesource      TestRunner.php
  *
- * @copyright       Copyright (c) 2012 Ronald Marske
- *
  * @package         TDD.Tests
+ *
+ * @copyright       Copyright (c) 2012 Ronald Marske, All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ *     * Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in
+ *       the documentation and/or other materials provided with the
+ *       distribution.
+ *
+ *     * Neither the name of Ronald Marske nor the names of his
+ *       contributors may be used to endorse or promote products derived
+ *       from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+ * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+ * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+ * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  */
 
-require_once 'TDD' . DIRECTORY_SEPARATOR . 'Configuration.php';
-require_once 'TDD' . DIRECTORY_SEPARATOR . 'Runner.php';
-require_once 'TDD' . DIRECTORY_SEPARATOR . 'Version.php';
+require_once 'TDDRunner' . DIRECTORY_SEPARATOR . 'Configuration.php';
+require_once 'TDDRunner' . DIRECTORY_SEPARATOR . 'Runner.php';
+require_once 'TDDRunner' . DIRECTORY_SEPARATOR . 'Version.php';
 
 class RunnerTest extends PHPUnit_Framework_TestCase {
 
@@ -36,7 +65,7 @@ class RunnerTest extends PHPUnit_Framework_TestCase {
 	 */
 	protected function getConfig(array $aOptions = array()) {
 
-		return new \TDD\Configuration($aOptions);
+		return new \TDDRunner\Configuration($aOptions);
 	}
 
 	/**
@@ -49,7 +78,7 @@ class RunnerTest extends PHPUnit_Framework_TestCase {
 	protected function getRunner(array $aOptions = array()) {
 
 		$oConfig = $this->getConfig($aOptions);
-		$oRunner = new \TDD\Runner($oConfig);
+		$oRunner = new \TDDRunner\Runner($oConfig);
 
 		$this->stdOut = fopen('php://memory', 'rw');
 
@@ -70,7 +99,7 @@ class RunnerTest extends PHPUnit_Framework_TestCase {
 	public function __construct_testIfAllVariablesSettet() {
 
 		$oConfig = $this->getConfig();
-		$oRunner = new \TDD\Runner($oConfig);
+		$oRunner = new \TDDRunner\Runner($oConfig);
 
 		$this->assertAttributeEquals($oConfig, 'oConfig', $oRunner);
 		$this->assertAttributeInternalType('resource', 'rStdErr', $oRunner);
@@ -115,7 +144,7 @@ class RunnerTest extends PHPUnit_Framework_TestCase {
 
 		fseek($this->stdOut, 0);
 
-		$sUsage = \TDD\Version::getVersionString();
+		$sUsage = \TDDRunner\Version::getVersionString();
 
 		$this->assertSame($sUsage . "\n", stream_get_contents($this->stdOut));
 
