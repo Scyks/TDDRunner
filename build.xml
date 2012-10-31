@@ -94,7 +94,7 @@
                 </exec>
 
                 <copy file="./build/TDDRunner-${version}.phar" tofile="../pear.ceow.de/get/TDDRunner.phar"
-                      overwrite="true">
+                      overwrite="true" />
 
                 <exec executable="phing">
                     <arg value="-f"/>
