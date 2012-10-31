@@ -93,6 +93,9 @@
                     <arg path="./build/TDD-Runner-${version}.tgz"/>
                 </exec>
 
+                <copy file="./build/TDDRunner-${version}.phar" tofile="../pear.ceow.de/get/TDDRunner.phar"
+                      overwrite="true">
+
                 <exec executable="phing">
                     <arg value="-f"/>
                     <arg path="../pear.ceow.de/build.xml"/>
