@@ -54,6 +54,9 @@ $buildRoot = __DIR__ . DIRECTORY_SEPARATOR . 'build';
 $phar = new Phar($buildRoot . DIRECTORY_SEPARATOR . $sName);
 
 $phar->startBuffering();
+$sFile = file_get_contents('TDDRunner.php');
+$sFile = str_replace("#!/usr/bin/env php\n", "", $sFile);
+file_put_contents('TDDRunner.php', $sFile);
 // Get the default stub. You can create your own if you have specific needs
 $stub = $phar->createDefaultStub('TDDRunner.php');
 
@@ -67,3 +70,7 @@ $stub = "#!/usr/bin/env php \n" . $stub;
 $phar->setStub($stub);
 
 $phar->stopBuffering();
+
+$sFile = file_get_contents('TDDRunner.php');
+$sFile = "#!/usr/bin/env php\n" . $sFile;
+file_put_contents('TDDRunner.php', $sFile);
