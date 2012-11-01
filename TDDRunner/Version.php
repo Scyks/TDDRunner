@@ -49,7 +49,7 @@ class Version {
 	 * version
 	 * @var string
 	 */
-	const VERSION = '1.0.0';
+	const VERSION = '1.0.1';
 
 	/**
 	 * returns the Version information
