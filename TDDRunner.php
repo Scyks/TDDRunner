@@ -69,7 +69,7 @@ $aArguments = ((array_key_exists('argv', $_SERVER)) ? $_SERVER['argv'] : array()
 array_shift($aArguments);
 
 // instantiate Configuration Object
-$oConfig = new TDDRunner\Configuration($aArguments);
+$oConfig = new \TDDRunner\Configuration($aArguments);
 
 // instantiate Runner
 $oRunner = new \TDDRunner\Runner($oConfig);

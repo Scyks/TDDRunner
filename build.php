@@ -55,14 +55,15 @@ $phar = new Phar($buildRoot . DIRECTORY_SEPARATOR . $sName);
 
 $phar->startBuffering();
 // Get the default stub. You can create your own if you have specific needs
-$defaultStub = $phar->createDefaultStub('index.php');
+$stub = $phar->createDefaultStub('TDDRunner.php');
 
 $phar->buildFromDirectory(__DIR__ . '/TDDRunner');
+$phar->addFile('TDDRunner.php');
 
 // Create a custom stub to add the shebang
-//$stub = "#!/usr/bin/env php \n" . $defaultStub;
+$stub = "#!/usr/bin/env php \n" . $stub;
 
 // Add the stub
-$phar->setStub($defaultStub);
+$phar->setStub($stub);
 
 $phar->stopBuffering();
