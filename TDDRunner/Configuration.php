@@ -90,8 +90,8 @@ class Configuration {
 	public function __construct(array $aArguments = array()) {
 
 		// set Defaults
-		$this->sWatchPath = realpath(dirname(dirname(__FILE__)));
-		$this->sTestPath = realpath(dirname(dirname(__FILE__)));
+		$this->sWatchPath = getenv('PWD');
+		$this->sTestPath = getenv('PWD');
 
 		// iterate arguments
 		$iArguments = count($aArguments);

@@ -125,6 +125,22 @@ class Runner {
 			$this->error('The given test path does not exists');
 
 			return false;
+		} elseif (!is_dir(realpath($this->oConfig->getTestPath()) . DIRECTORY_SEPARATOR . 'tests') &
+			!is_dir(realpath($this->oConfig->getTestPath()) . DIRECTORY_SEPARATOR . 'test') &&
+			!is_dir(realpath($this->oConfig->getTestPath()) . DIRECTORY_SEPARATOR . 'Test') &&
+			!is_dir(realpath($this->oConfig->getTestPath()) . DIRECTORY_SEPARATOR . 'Tests') &&
+			!file_exists(realpath($this->oConfig->getTestPath()) . DIRECTORY_SEPARATOR . 'phpunit.xml') &&
+			!file_exists(realpath($this->oConfig->getTestPath()) . DIRECTORY_SEPARATOR . 'phpunit.xml.dist') &&
+			false === strpos($this->oConfig->getPHPUnitArguments(), '-c') &&
+			false === strpos($this->oConfig->getPHPUnitArguments(), '--configuration')
+		) {
+
+			$this->error('The given test path does not contain folder named '
+					. '"test, Test, tests, Tests" or does not contain "phpunit.xml, phpunit.xml.dist" '
+					. 'or there are no configuration for PHPUnit given.'
+			);
+
+			return false;
 		}
 
 		if (!is_dir(realpath($this->oConfig->getWatchPath()))) {

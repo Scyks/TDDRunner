@@ -171,6 +171,26 @@ class RunnerTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @test
 	 */
+	public function run_TestPathFolderThatDoesNotContainTests_ShowMessageToStdErr() {
+
+		$oRunner = $this->getRunner(array('--test-path', __DIR__));
+
+		// Main Loop
+		$oRunner->run();
+
+		fseek($this->stdOut, 0);
+
+		$this->assertSame("\033[0;31mERROR: \033[0mThe given test path does not contain folder named "
+				. "\"test, Test, tests, Tests\" or does not contain \"phpunit.xml, phpunit.xml.dist\" "
+				. "or there are no configuration for PHPUnit given.",
+			stream_get_contents($this->stdOut)
+		);
+
+	}
+
+	/**
+	 * @test
+	 */
 	public function run_WatchPathFolderThatDoesNotExists_ShowMessageToStdErr() {
 
 		$oRunner = $this->getRunner(array('--watch-path', '/my/project/test/path/that/does/not/exists'));
