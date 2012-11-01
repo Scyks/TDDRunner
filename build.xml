@@ -87,14 +87,14 @@
             <equals arg1="${pirum.evailable}" arg2="true"/>
             <then>
                 <echo message="Execute Pirum"/>
-                <exec executable="pirum">
+                <exec executable="pirum" logoutput="true">
                     <arg value="add"/>
                     <arg path="../pear.ceow.de/"/>
-                    <arg path="./build/TDD-Runner-${version}.tgz"/>
+                    <arg path="./build/TDDRunner-${version}.tgz"/>
                 </exec>
 
                 <copy file="./build/TDDRunner-${version}.phar" tofile="../pear.ceow.de/get/TDDRunner.phar"
-                      overwrite="true" />
+                      overwrite="true"/>
 
                 <exec executable="phing">
                     <arg value="-f"/>
