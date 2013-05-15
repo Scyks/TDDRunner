@@ -39,6 +39,25 @@
                 <file baseinstalldir="/" name="Configuration.php" role="php"/>
                 <file baseinstalldir="/" name="Runner.php" role="php"/>
                 <file baseinstalldir="/" name="Version.php" role="php"/>
+
+                <dir name="jnotify-lib-0.94">
+                    <dir name="64-bit_Linux">
+                        <file baseinstalldir="/" name="libjnotify.so" role="php" />
+                    </dir>
+
+                    <file baseinstalldir="/" name="Changelog" role="php" />
+                    <file baseinstalldir="/" name="epl.html" role="php"  />
+                    <file baseinstalldir="/" name="jnotify.dll" role="php"  />
+                    <file baseinstalldir="/" name="jnotify-0.94.jar" role="php"  />
+                    <file baseinstalldir="/" name="jnotify-native-linux-0.94-src.zip" role="php"  />
+                    <file baseinstalldir="/" name="jnotify-native-macosx-0.94-src.zip" role="php"  />
+                    <file baseinstalldir="/" name="jnotify-native-win32-0.94-src.zip" role="php"  />
+                    <file baseinstalldir="/" name="jnotify_64bit.dll" role="php"  />
+                    <file baseinstalldir="/" name="lgpl.txt" role="php"  />
+                    <file baseinstalldir="/" name="libjnotify.jnilib" role="php"  />
+                    <file baseinstalldir="/" name="libjnotify.so" role="php"  />
+                    <file baseinstalldir="/" name="README" role="php"  />
+                </dir>
             </dir>
             <file baseinstalldir="/" name="README.md" role="doc"/>
             <file baseinstalldir="/" name="TDDRunner.php" role="script">

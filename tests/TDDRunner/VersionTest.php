@@ -51,6 +51,6 @@ class VersionTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function getVersionString_retrieveCurrentVersion_versionTagReturned() {
 
-		$this->assertSame('TDDRunner 1.0.1 by Ronald Marske', \TDDRunner\Version::getVersionString());
+		$this->assertSame('TDDRunner 1.0.2 by Ronald Marske', \TDDRunner\Version::getVersionString());
 	}
 }

@@ -146,7 +146,7 @@ class RunnerTest extends PHPUnit_Framework_TestCase {
 
 		$sUsage = \TDDRunner\Version::getVersionString();
 
-		$this->assertSame($sUsage . "\n", stream_get_contents($this->stdOut));
+		$this->assertSame($sUsage, stream_get_contents($this->stdOut));
 
 	}
 
