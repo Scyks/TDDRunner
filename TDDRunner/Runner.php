@@ -149,19 +149,6 @@ class Runner {
 			return false;
 		}
 
-		// can't test that
-		/*if (!is_file($this->oConfig->getPHPUnitPath())) {
-			$this->error('The given PHPUnit executable does not exists');
-			return false;
-		}*/
-
-		//echo realpath($this->oConfig->getTestPath());
-		//echo "\n";
-		//echo realpath($this->oConfig->getWatchPath());
-		//echo "\n";
-		//echo realpath($this->oConfig->getPHPUnitPath());
-		//echo "\n";
-
 		$this->printVersion();
 		$this->output("\n");
 
@@ -177,60 +164,37 @@ class Runner {
 	 */
 	private function mainLoop() {
 
-		// main loop
-		while(true == $this->bMainLoop) {
+		$sLib = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'jnotify-lib-0.94' . DIRECTORY_SEPARATOR;
 
-			// Directory Iterator
-			$oDirectory = new \RecursiveDirectoryIterator(realpath($this->oConfig->getWatchPath()));
-			$oIterator = new \RecursiveIteratorIterator($oDirectory);
-			$oRegexIterator = new \RegexIterator($oIterator, '/^.+\.php$/i', \RecursiveRegexIterator::GET_MATCH);
+		$sWatchPath = realpath($this->oConfig->getWatchPath());
 
-			// flag if test should be executed
-			$bExecute = false;
 
-			// iterate over phpfiles
-			foreach($oRegexIterator as $sFilename => $oFile) {
+		// open process
+		$rHandler = popen('java -Djava.library.path=' . $sLib . ' -jar ' . $sLib . 'jnotify-0.94.jar ' . $sWatchPath , 'r');
 
-				// get last changed date
-				$iTime = filemtime($sFilename);
+		$this->output('listen on path: ' . $sWatchPath);
+		$this->output("\n\n");
 
-				// if file not imn storage - add
-				if (!array_key_exists($sFilename, $this->aFiles)) {
-					$this->aFiles[$sFilename] = $iTime;
+		$this->runPHPUnit();
 
-					// could be a new file - or at start - execute Tests
-					$bExecute = true;
+		// read line
+		while ($sLine = fgets($rHandler)) {
 
-					// continue iterating
-					continue;
-				}
+			// if created or modified
+			if ('created' == substr($sLine, 0, 7) || 'modified' == substr($sLine, 0, 8)) {
+				// get fielename
+				$sFile = substr(strrchr($sLine, ' : '), 1, -1);
 
-				// if file was changed
-				if ($this->aFiles[$sFilename] < $iTime) {
-					$this->aFiles[$sFilename] = $iTime;
-
-					// mark execution
-					$bExecute = true;
-
+				// check for php files
+				if ('.php' == substr($sFile, -4)) {
+					// execute PHPUnit
+					$this->runPHPUnit();
 				}
 
 			}
-
-			// if test should be executet
-			if (true == $bExecute) {
-				// execute PHPUnit
-				$this->runPHPUnit();
-			}
-
-			// important to clear statcache
-			clearstatcache();
-
-			// sleep 100 ms
-			usleep(10000);
-
-			//unset($bExecute, $iTime, $sFilename, $oFile, $oDirectory, $oIterator, $oRegexIterator);
-
 		}
+
+		pclose($rHandler);
 	}
 
 	/**
@@ -238,7 +202,7 @@ class Runner {
 	 */
 	private function printVersion() {
 
-		$this->output(\TDDRunner\Version::getVersionString() . "\n");
+		$this->output(\TDDRunner\Version::getVersionString());
 	}
 
 	/**

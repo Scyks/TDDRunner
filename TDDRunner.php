@@ -76,3 +76,17 @@ $oRunner = new \TDDRunner\Runner($oConfig);
 
 // run
 $oRunner->run();
+
+//$sLib = 'TDDRunner' . DIRECTORY_SEPARATOR . 'jnotify-lib-0.94' . DIRECTORY_SEPARATOR;
+//$rHandler = popen('java -Djava.library.path='.$sLib.' -jar ' . $sLib . 'jnotify-0.94.jar .', 'r');
+//while ($sLine = fgets($rHandler)) {
+//
+//	if ('created' == substr($sLine, 0, 7) || 'modified' == substr($sLine, 0, 8)) {
+//		$sFile = substr(strrchr($sLine, ' : '), 1, -1);
+//
+//		if ('.php' == substr($sFile, -4)) {
+//			echo $sFile . "\n";
+//		}
+//
+//	}
+//}

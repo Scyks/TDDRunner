@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * @author          Ronald Marske <r.marske@secu-ring.de>
@@ -49,7 +50,7 @@ class Version {
 	 * version
 	 * @var string
 	 */
-	const VERSION = '1.0.1';
+	const VERSION = '1.0.2';
 
 	/**
 	 * returns the Version information
