@@ -26,23 +26,19 @@ since version 1.0.2 there is an implementation of jnotify. When you're using a l
 you have to enable libnotify.so 64 bit version. To do that please see documentation below:
 
 - go to TDDRunner folder
-
-    cd /usr/share/pear/TDDRunner/jnotify-lib-0.94
+    ```cd /usr/share/pear/TDDRunner/jnotify-lib-0.94```
 
 
 - create new folder "32-bit_Linux"
+    ```mkdir 32-bit_Linux```
 
-    mkdir 32-bit_Linux
 
-
-- move libnotify.so to 32-bit_Linux
-
-    mv libjnotify.so 32-bit_Linux/libjnotify.so
+- move libnotify.so to 32-bit_Linux 
+    ```mv libjnotify.so 32-bit_Linux/libjnotify.so```
 
 
 - create symbolic link to 64bit version
-
-    ln -s 64-bit_Linux/libjnotify.so libjnotify.so
+    ```ln -s 64-bit_Linux/libjnotify.so libjnotify.so```
 
 
 If anyone know how to do this by default with PEAR, please tell me.
@@ -66,6 +62,9 @@ You can configure TDDRunner with the following arguments:
  * -v,--version: print version of TDDRunner
  * -h, --help: print out the usage information
  * PHPUnit configuration. see documentation of PHPUnit
+
+### Articles:
+ * http://blog.secu-ring.de/software/call-again-phpunit-test-driven-development-watcher/
 
 ### Example:
 
