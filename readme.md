@@ -20,6 +20,22 @@ To install TDDRunner you can run (as root user) the following two commands.
     pear channel-discover pear.ceow.de
     pear install ceow/TDDRunner
 
+#### Linux 64 bit system
+
+since version 1.0.2 there is an implementation of jnotify. When you're using a linux 64 bit system
+you have to enable libnotify.so 64 bit version. To do that please see documentation below:
+
+* go to TDDRunner folder
+    cd /usr/share/pear/TDDRunner/jnotify-lib-0.94
+* create new folder "32-bit_Linux"
+    mkdir 32-bit_Linux
+* move libnotify.so to 32-bit_Linux
+    mv libjnotify.so 32-bit_Linux/libjnotify.so
+* create symbolic link to 64bit version
+    ln -s 64-bit_Linux/libjnotify.so libjnotify.so
+
+If anyone know how to do this by default with PEAR, please tell me.
+
 ### PHP Archive (PHAR)
 
     wget http://pear.ceow.de/get/TDDRunner.phar
