@@ -58,22 +58,24 @@ You can configure TDDRunner with the following arguments:
 
 ### Example:
 
+Tddrunner executable should be in /usr/bin/tddrunner or /usr/local/bin/tddrunner
+
 Check recursively file changes at the directory where TDDRunner.php ist stored and calls PHPUnit in this directory
 
-    php TDDRunner.php
+    tddrunner
 
 Check recursively file changes in "/my/Project/Folder" and calls PHPUnit where TDDRunner.php is stored
 
-    php TDDRunner.php --watch-path /my/Project/Folder
+    tddrunner --watch-path /my/Project/Folder
 
 Check recursively file changes in "/my/Project/Folder" and calls PHPUnit in "/my/Project/Folder/Tests"
 
-    php TDDRunner.php --watch-path /my/Project/Folder --test-path /my/Project/Folder/Tests
+    tddrunner --watch-path /my/Project/Folder --test-path /my/Project/Folder/Tests
 
 Defines that the phpunit executable stored in /var/
 
-    php TDDRunner.php --phpunit-path /var/phpunit
+    tddrunner --phpunit-path /var/phpunit
 
 Execute PHPUnit with option "--group=test"
 
-    php TDDRunner.php --group=test
+    tddrunner --group=test
