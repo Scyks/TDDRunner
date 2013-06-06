@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="TDD Runner" default="build">
 
-    <target name="build" depends="prepare,cleanup,test,phar,pear"/>
+    <target name="build" depends="prepare, cleanup, test, phpcs, phpmd, phpcpd, pdepend, phar, pear"/>
 
     <!-- make build folder -->
     <target name="prepare">
         <echo msg="Making directory ./build"/>
         <mkdir dir="./build"/>
+		<mkdir dir="./build/phpcs/"/>
+		<mkdir dir="./build/pdepend/"/>
     </target>
 
-    <!-- cleanup buold directory -->
+    <!-- cleanup build directory -->
     <target name="cleanup" description="Cleanup build artifacts">
         <delete dir="./build/phar"/>
 
@@ -31,6 +33,44 @@
             </batchtest>
         </phpunit>
     </target>
+
+	<target name="phpcs">
+		<exec executable="phpcs"> 
+			<arg line="--report=checkstyle
+              			--report-file=./build/phpcs/checkstyle.xml
+              			--standard=Zend
+              			." />
+		</exec>
+	</target>
+
+	<target name="phpmd">
+		<exec executable="phpmd">
+			<arg line="
+				 . xml codesize,unusedcode,naming,design --reportfile ${output}/messdetector.xml --exclude Tests/
+			" />
+		</exec>
+	</target>
+
+	<target name="phpcpd">
+		<exec executable="phpcpd">
+			<arg line="
+				 --log-pmd ./build/phpcpd.xml .
+			" />
+		</exec>
+	</target>
+
+	<target name="pdepend">
+		<exec executable="pdepend">
+			<arg line="
+				--jdepend-xml=./build/pdepend/jdepend.xml 
+				--jdepend-chart=./build/pdepend/dependencies.svg 
+				--overview-pyramid=./build/pdepend/overview-pyramid.svg 
+				--ignore=Tests/ 
+				.
+			" />
+		</exec>
+	</target>
+	
 
     <target name="phar" description="Create PHAR archive of TDDRunner" depends="cleanup">
 
