@@ -46,7 +46,7 @@
 	<target name="phpmd">
 		<exec executable="phpmd">
 			<arg line="
-				 . xml codesize,unusedcode,naming,design --reportfile ${output}/messdetector.xml --exclude Tests/
+				 . xml codesize,unusedcode,naming,design --reportfile .build/messdetector.xml --exclude tests/
 			" />
 		</exec>
 	</target>
