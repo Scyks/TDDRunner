@@ -49,6 +49,7 @@ You can configure TDDRunner with the following arguments:
  * --watch-path: The destination where to check file changes
  * --test-path: the path where your tests are
  * --phpunit-path: the absolute path of PHPUni executable
+ * --exclude-path: the path which should be excluded from watch (eg. application/logs)
  * -v,--version: print version of TDDRunner
  * -h, --help: print out the usage information
  * PHPUnit configuration. see documentation of PHPUnit
@@ -79,3 +80,7 @@ Defines that the phpunit executable stored in /var/
 Execute PHPUnit with option "--group=test"
 
     tddrunner --group=test
+
+Exclude path from watch
+    
+    tddrunner --exclude-path application/logs

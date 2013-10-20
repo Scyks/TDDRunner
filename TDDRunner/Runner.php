@@ -180,13 +180,16 @@ class Runner {
 		// read line
 		while ($sLine = fgets($rHandler)) {
 
+
 			// if created or modified
 			if ('created' == substr($sLine, 0, 7) || 'modified' == substr($sLine, 0, 8)) {
 				// get fielename
 				$sFile = substr(strrchr($sLine, ' : '), 1, -1);
 
+				$sPath = substr($sFile, 0, strrpos($sFile, '/'));
+
 				// check for php files
-				if ('.php' == substr($sFile, -4)) {
+				if ('.php' == substr($sFile, -4) && $this->oConfig->getExcludedPath() !== $sPath) {
 					// execute PHPUnit
 					$this->runPHPUnit();
 				}
@@ -283,5 +286,4 @@ class Runner {
 		// clear memory
 		unset($sCurrDir, $rPHPUnit, $sExecutable);
 	}
-
 }

@@ -46,7 +46,7 @@ namespace TDDRunner;
 class Configuration {
 
 	/**
-	 * Watch path for filechanges
+	 * Watch path for file changes
 	 *
 	 * @var string
 	 */
@@ -85,6 +85,12 @@ class Configuration {
 	protected $sPHPUnitArguments = null;
 
 	/**
+	 * PHPUnit Arguments
+	 * @var string
+	 */
+	protected $sExcludePath = null;
+
+	/**
 	 *
 	 */
 	public function __construct(array $aArguments = array()) {
@@ -99,7 +105,7 @@ class Configuration {
 
 			switch($aArguments[$i]) {
 
-				// watch path for file canges
+				// watch path for file changes
 				case '--watch-path':
 					// set path
 					$this->sWatchPath = $aArguments[++$i];
@@ -144,6 +150,13 @@ class Configuration {
 					unset($aArguments[$i]);
 					break;
 
+				case '--exclude-path':
+					// set path
+					$this->sExcludePath = $aArguments[++$i];
+
+					// remove arguments
+					unset($aArguments[$i - 1], $aArguments[$i]);
+					break;
 			}
 		}
 
@@ -180,7 +193,7 @@ class Configuration {
 	}
 
 	/**
-	 * flag if Help is settet
+	 * flag if Help is set
 	 * @return boolean
 	 */
 	public function getHelp() {
@@ -189,7 +202,7 @@ class Configuration {
 	}
 
 	/**
-	 * flag if Version is settet
+	 * flag if Version is set
 	 * @return boolean
 	 */
 	public function getVersion() {
@@ -204,5 +217,14 @@ class Configuration {
 	public function getPHPUnitArguments() {
 
 		return $this->sPHPUnitArguments;
+	}
+
+	/**
+	 * return excluded path
+	 * @return string
+	 */
+	public function getExcludedPath() {
+
+		return $this->sExcludePath;
 	}
 }
