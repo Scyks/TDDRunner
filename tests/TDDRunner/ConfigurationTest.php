@@ -132,4 +132,13 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase {
 
 	}
 
+	/**
+	 * @test
+	 */
+	public function __construct_TestPathArguments_TestExcludePathSet() {
+
+		$oConfig = new \TDDRunner\Configuration(array('--exclude-path', '/my/path/to/test/folder'));
+		$this->assertSame('/my/path/to/test/folder', $oConfig->getExcludedPath());
+
+	}
 }
